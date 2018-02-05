@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Dan Collins Portfolio">
+    <meta name="author" content="Dan Collins">
+
+    <title>Full Width Pics - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/full-width-pics.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/fantasque-sans-mono" type="text/css" />
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Coding</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header - set the background image for the header in the line below -->
+    <header class="py-5 bg-image-full" style="background-image: url('https://www.brainvire.com/wp-content/uploads/The-BIG-Firms-are-using-Node.Js-for-Web-and-Mobile-App.jpg')">
+
+    </header>
+
+    <!-- Content section -->
+    <section class="py-5">
+        <div class="container">
+            <h1>BLOCKING / NON-BLOCKING I/O</h1>
+            <hr>
+            <br>
+            <ul>
+                <!-- List 1 -->
+                <li>
+                    <!-- Title -->
+                    <strong>BLOCKING I/O - <br> </strong>
+
+                    <!-- Para. 1 -->
+                    <p>
+                    Blocking is when the execution of additional JavaScript in the Node.js process must wait until a non-JavaScript operation
+                    completes. This happens because the event loop is unable to continue running JavaScript while a blocking
+                    operation is occurring.
+                    </p>
+                    <!-- Para. 2 -->
+                    <p>
+                    <em>Some methods also have blocking counterparts, which have names that end with Sync.</em> 
+                    </p>
+                    <!-- Para. 3 -->
+                    <p>
+                    Blocking methods execute <strong>synchronously</strong> and non-blocking methods execute <strong>asynchronously</strong>.
+                    </p>
+                </li>
+                <!-- End - List 1 -->
+            </ul>
+            <hr>
+            <i class="fas fa-code"></i>&nbsp <strong>CODE</strong>
+                    <br>
+                    <br>
+                    Using the File System module as an example, this <strong>synchronous</strong> file reads:
+                        <br>
+                        <br>
+                    <p class="code" style="font-family: 'FantasqueSansMonoRegular';">
+                        const fs = require('fs');
+                        <br> 
+                        const data = fs.readFile<strong>Sync</strong>('/file.md');
+                        <span style="color: rgb(50, 156, 50)">// Blocks here until the whole file is read</span>
+                        <br>
+                        <br>
+                        <span style="color: rgb(50, 156, 50)">// Scheduled Timeout (100ms)</span>
+                        <br> const timeoutScheduled = Date.now();
+                        <br> setTimeout(() => {
+                        <br> &nbsp &nbsp const delay = Date.now() - timeoutScheduled;
+                        <br> console.log(`${delay}ms have passed since I was scheduled`);
+                        <br> }, 100);
+                        <br>
+                        <br>
+                    </p>
+                        <strong>EXAMPLE 2:</strong>
+                        <br>
+                        <br>
+
+                    <p class="code" style="font-family: 'FantasqueSansMonoRegular';">
+                        <span style="color: rgb(50, 156, 50)">// Blocking Code</span>
+                        <br>
+                        var contents = fs.readFileSync('/etc/hosts');
+                        <br>
+                        &nbsp &nbsp console.log(contents); <br>
+                        &nbsp &nbsp console.log('Doing something else');
+                        <br>
+                        <br>
+                        <span style="color: rgb(50, 156, 50)"> // Non-Blocking Code</span>
+                        <br>
+                        fs.readFile('/etc/hosts', <strong>function(err, contents)</strong> { <span style="color: rgb(50, 156, 50)"> << This is a Callback - when the file is loaded print contents</span>
+                        <br>
+                        console.log(contents);
+                        <br>
+                        });
+                        <br>
+                        console.log('Doing something else');
+                    </p>
+                </li>
+                <li>
+                    <strong>process.nextTick()</strong> This defers the execution of a function until the next Event Loop Iteration.
+                    In Node.js, each iteration of an Event Loop is called a tick. To schedule a callback function to be invoked
+                    in the next iteration of the Event Loop, we use process.nextTick(). It just takes a callback with no
+                    time bound, since it will be executing in the next iteration of the Event Loop.
+                    <br>
+                    <br>
+                </li>
+
+                <strong style="color: red;">process.nextTick(callback)</strong>
+                <br>
+                <br>
+                <p>
+                    EXAMPLE CODE:
+                </p>
+
+                <div class="code" style="font-family: 'FantasqueSansMonoRegular';">
+                    function cb(){
+                    <br> &nbsp &nbsp console.log('Processed in next iteration');
+                    <br> }
+                    <br> process.nextTick(cb);
+                    <br> console.log('Processed in the first iteration');
+                    <p>
+                </div>
+                The above snippet is an example of how process.nextTick() works. You can save the snippet in a file.js and run using $node
+                file.js from your terminal. You will definitely notice that the second console.log printed before the console.log
+                associated with function cb().
+                </p>
+            </ul>
+            <hr>
+            <p>When Node.js starts, it initializes the
+                <strong>event loop</strong> (or implements the REPL --Read-Eval-Print-Loop) In this view, green circles represent
+                steps, or
+                <strong>phases</strong> which are internally executed using Node.js code, while blue circles represent application
+                code developed using the Node.js API (user code).
+                <p>The loop is entered when Node.js executes a JavaScript file and begins by checking for timeout events. If
+                    there are any expired timeouts (i.e. a timer configured to fire at 200 ms is found and 200 ms or more
+                    has expired since the timer started), the callbacks for these timeouts, represented by the blue circle,
+                    are executed. This continues until all expired timeouts have been handled. After performing the task
+                    Node begins processing the event loop.</p>
+                <p>
+                    <strong>REPL code:</strong> const repl = require('repl');</p>
+                <img src='https://dzone.com/storage/temp/7011039-event-loop.png'>
+        </div>
+        <hr>
+        <!-- Content section -->
+        <section class="py-5">
+            <div class="container">
+                <ul>
+                    <li>
+                        <strong>UNICORN - </strong>
+                        The Unicorn function is responsible for handling the events that the OS kernel and thread pool have fired, as well as preparing
+                        near-term timeout events. In Node.js, a large portion of the IO tasks are performed through the OS
+                        kernel, such as reading and writing to sockets and handling network communications; when possible,
+                        Node.js will delegate to the functions and structures provided by the kernel and will check to see
+                        when these events have completed.
+                    </li>
+
+
+                </ul>
+            </div>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
